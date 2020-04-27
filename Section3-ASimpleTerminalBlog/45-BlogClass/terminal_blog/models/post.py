@@ -1,9 +1,12 @@
 from database import Database
 import uuid
+import datetime
 
 
 class Post:
-    def __init__(self, blog_id, title, content, author, date, id=None):
+    def __init__(
+        self, blog_id, title, content, author, date=datetime.datetime.utcnow(), id=None
+    ):
         self.blog_id = blog_id
         self.title = title
         self.content = content
@@ -24,9 +27,10 @@ class Post:
             "created_date": self.created_date,
         }
 
-    @staticmethod
-    def from_mongo(id):
-        return Database.find_one(collection="posts", query={"id": id})
+    @classmethod
+    def from_mongo(cls, id):
+        post = Database.find_one(collection="posts", query={"id": id})
+        return cls(**post)
 
     @staticmethod
     def from_blog(id):
