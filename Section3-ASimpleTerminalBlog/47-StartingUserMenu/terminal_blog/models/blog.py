@@ -12,6 +12,7 @@ class Blog:
         self.blog_id = uuid.uuid4().hex if blog_id is None else blog_id
 
     def new_post(self):
+        """ add a new post to mongo, from this blog """
         title = input("Enter post title: ")
         content = input("Enter post content: ")
         post = Post(
@@ -24,13 +25,15 @@ class Blog:
         post.save_to_mongo()
 
     def get_posts(self):
-        """get posts from blog"""
+        """get posts from current blog"""
         return Post.from_blog(self.blog_id)
 
     def save_to_mongo(self):
+        """ save current blog information to mongo """
         Database.insert(collection="blogs", data=self.json())
 
     def json(self):
+        """ retrieve info in JSON format from current blog """
         return {
             "author": self.author,
             "title": self.title,
@@ -40,7 +43,7 @@ class Blog:
 
     @classmethod
     def from_mongo(cls, blog_id):
-        """ get blog """
+        """ return a Blog object """
         blog_data = Database.find_one(collection="blogs", query={"blog_id": blog_id})
 
         return cls(**blog_data)

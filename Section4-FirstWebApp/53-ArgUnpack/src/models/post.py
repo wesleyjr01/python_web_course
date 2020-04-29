@@ -1,4 +1,4 @@
-from database import Database
+from common.database import Database
 import uuid
 import datetime
 
@@ -10,23 +10,23 @@ class Post:
         title,
         content,
         author,
-        date=datetime.datetime.utcnow(),
-        post_id=None,
+        created_date=datetime.datetime.utcnow(),
+        _id=None,
         **kwargs
     ):
         self.blog_id = blog_id
         self.title = title
         self.content = content
         self.author = author
-        self.created_date = date
-        self.post_id = uuid.uuid4().hex if post_id is None else post_id
+        self.created_date = created_date
+        self._id = uuid.uuid4().hex if _id is None else _id
 
     def save_to_mongo(self):
         Database.insert(collection="posts", data=self.json())
 
     def json(self):
         return {
-            "post_id": self.post_id,
+            "_id": self._id,
             "blog_id": self.blog_id,
             "author": self.author,
             "content": self.content,
@@ -35,8 +35,8 @@ class Post:
         }
 
     @classmethod
-    def from_mongo(cls, post_id):
-        post = Database.find_one(collection="posts", query={"post_id": post_id})
+    def from_mongo(cls, _id):
+        post = Database.find_one(collection="posts", query={"_id": _id})
         return cls(**post)
 
     @staticmethod
