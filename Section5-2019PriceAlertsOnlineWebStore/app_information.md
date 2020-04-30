@@ -1,0 +1,11 @@
+# App Functionality
+* In this section, we are going to design a App that is going to tell our users when an item that they want to buy online goes under their desired price.
+* A user is interested in an item on an online web-store. They give us information about the store and the item, as well as the price they want. We look at the price every now and then, and notify them when we've found a good price in that store.
+* We will build this App using **MVC(Model View Controller)**, it's a very popular way of structuring a app.
+    * The **Model** defines what the application understands about the things that it deals with. Potential Models:
+        * **Item**: information about the specific thing a user is intered in.
+        * **Store**: to hold information relevant to many items from the same web store.
+        * **Alert**: to hold contact information and what price the user is intered in.
+    * A **View** is what the user sees and interacts with. So in this case, we're gonna be creating a web app, so the user is going to be looking at a web view. Something they can look at on their browser, it's going to be using HTML and CSS, and our Flask Application si going to be responsible for serving those views to our user, so they can look at them.
+    * A **Controller** is essentially everything else in an application like this one. So once we have the view that the user interacts with and the models that our program understands about the context it's in for this application, the controller is reponsible for handling users inputs, for dispatching user outputs, it's responsible for creating models and storing them in databases, and making sure that the models are valid and for retrieving prices from the websites that our users are interested in. **The controller is essentially the engine that runs the whole app.**
+    * **OBS:** Particullarly in this application, the views and the templates work very closely together such that I'm calling my controllers as views because they're only responsible for serving the views. **You could say in this application we don't have "controllers": what would be our controllers only give users HTML and receive data so that they can present more HTML. They will do very little processing.**
