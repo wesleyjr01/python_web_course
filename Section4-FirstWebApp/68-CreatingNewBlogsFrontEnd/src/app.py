@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, make_response
 from models.user import User
 from common.database import Database
 from models.blog import Blog
@@ -50,6 +50,23 @@ def register_user():
         session["email"] = "User Already Registered"
 
     return render_template("profile.html", email=session["email"])
+
+
+@app.route("/blogs/new", methods=["POST", "GET"])
+def create_new_blogs():
+    if request.method == "GET":
+        return render_template("new_blog.html")
+    else:
+        title = request.form["title"]
+        description = request.form["description"]
+        user = User.get_by_email(session["email"])
+
+        new_blog = Blog(
+            author=user.email, title=title, description=description, author_id=user._id
+        )
+        new_blog.save_to_mongo()
+
+        return make_response(user_blogs(user._id))
 
 
 @app.route("/blogs/<string:user_id>")
