@@ -1,6 +1,6 @@
-from flask import Flask
+import requests
 
-app = Flask(__name__)
-
-if __name__ == "__main__":
-    app.run()
+response = requests.get(
+    "https://www.johnlewis.com/2020-apple-ipad-pro-12-9-inch-a12z-bionic-ios-wi-fi-256gb/space-grey/p4949087"
+)
+print(response.content)
