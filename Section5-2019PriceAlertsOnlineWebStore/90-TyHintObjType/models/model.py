@@ -3,7 +3,7 @@ import uuid
 from abc import ABCMeta, abstractmethod
 from common.database import Database
 
-T = Type("T", bound="Model")
+T = TypeVar("T", bound="Model")
 
 
 class Model(metaclass=ABCMeta):

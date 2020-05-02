@@ -15,7 +15,8 @@ class Database:
         Database.DATABASE[collection].insert(data)
 
     @staticmethod
-    def find(collection, query):
+    def find(collection, query) -> pymongo.cursor:
+        """ pymongo.cursor is an iterable """
         return Database.DATABASE[collection].find(query)
 
     @staticmethod
