@@ -1,23 +1,28 @@
-from typing import Dict, List
+from dataclasses import dataclass, field
+from typing import Dict
 from models.item import Item
 from models.model import Model
+import uuid
 
 
+@dataclass(eq=False)
 class Alert(Model):
 
-    collection = "alerts"
+    collection: str = field(init=False, default="alerts")
+    name: str
+    item_id: str
+    price_limit: float
+    _id: str = field(default_factory=lambda: uuid.uuid4().hex)
 
-    def __init__(self, item_id: str, price_limit: float, _id: str = None):
-        super().__init__(_id)
-        self.item_id = item_id
-        self.price_limit = price_limit
+    def __post_init__(self):
         self.item = Item.find_by_id(self.item_id)
 
     def json(self) -> Dict:
         return {
             "_id": self._id,
-            "price_limit": self.price_limit,
+            "name": self.name,
             "item_id": self.item_id,
+            "price_limit": self.price_limit,
         }
 
     def load_item_price(self) -> float:
