@@ -19,5 +19,5 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #
 ```
 * So, in the line ```m h dom mon dow user  command``` we have **minute hour dayOfTheMonth monthNumber dayOfTheWeek user command**, a \* means all. For exampĺe ```17 *    * * *``` is a job that runs at the 17th minute of every hour, every day of the month, every month of the year and every day of the week, it is ran by the root user, and the command is ```cd / && run-parts --report /etc/cron.hourly```.
-* We will run this command :
-```29 * * * * wesley cd /var/www/html/pricing-service && source venv/bin/activate && python alert_updater.py```
+* We will run this command, to run our job every 29th minute of every hour :
+```11 * * * * wesley cd /var/www/html/pricing-service && source venv/bin/activate && python alert_updater.py```
