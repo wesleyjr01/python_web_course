@@ -57,3 +57,16 @@ WantedBy=multi-user.target
 * And there is one more thing, in case we haven't done it already, which is ```touch log/emperor.log```.
 * Now ```sudo systemctl daemon-reload```
 * Now ```sudo systemctl start uwsgi_pricing_service```. Hopefully, nothing happened, no errors.
+* The next thing to check is the log/uwsgi.log, do ```cat log/uwsgi.log```, you should see your processes at the end of the file, like this:
+```
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 20963)
+spawned uWSGI worker 1 (pid: 20974, cores: 8)
+spawned uWSGI worker 2 (pid: 20975, cores: 8)
+spawned uWSGI worker 3 (pid: 20976, cores: 8)
+spawned uWSGI worker 4 (pid: 20977, cores: 8)
+spawned uWSGI worker 5 (pid: 20978, cores: 8)
+spawned uWSGI worker 6 (pid: 20979, cores: 8)
+spawned uWSGI worker 7 (pid: 20980, cores: 8)
+spawned uWSGI worker 8 (pid: 21016, cores: 8)
+```
